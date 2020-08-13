@@ -1,0 +1,23 @@
+galaxy_info:
+
+  license: MIT
+  min_ansible_version: 2.9
+
+  author: Rune Rønneseth
+  description: Installs & configures HashiCorp Consul, Vault & Nomad
+  company: Kreditorforeningens Driftssentral DA
+
+  # https://galaxy.ansible.com/api/v1/platforms/
+  platforms:
+  - name: Ubuntu
+    versions:
+    - 20.04
+    - 18.04
+
+  galaxy_tags:
+  - hashicorp
+  - nomad
+  - consul
+  - vault
+
+dependencies: []

@@ -1,0 +1,48 @@
+---
+
+# --------------------------------------------------------------------------------
+#   PRE-INSTALLATION
+# --------------------------------------------------------------------------------
+
+- name: VALIDATE REQUIREMENTS
+  assert:
+    that:
+      - ansible_distribution in os_supported
+    fail_msg: "{{ ansible_distribution }} is not supported. Aborting.."
+    success_msg: "{{ ansible_distribution }} is supported. Continuing installation"
+    quiet: yes
+
+- name: RUN PLAYBOOK
+  block:
+
+# --------------------------------------------------------------------------------
+#   INSTALLATION
+# --------------------------------------------------------------------------------
+
+  - include_tasks: "_install_repo_{{ ansible_distribution | lower }}.yaml"
+    when: use_linux_repository
+
+  - include_tasks: "_install_download.yaml"
+    when: not use_linux_repository
+
+# --------------------------------------------------------------------------------
+#   CONFIGURATION
+# --------------------------------------------------------------------------------
+
+  - include_tasks: "_configure.yaml"
+    when: create_config
+
+  - debug:
+      var: ansible_service_mgr
+
+  - include_tasks: "_service_systemd.yaml"
+    when:
+      - configure_service
+      - ansible_service_mgr == 'systemd'
+
+# --------------------------------------------------------------------------------
+#   POST-INSTALLATION
+# --------------------------------------------------------------------------------
+
+  - include_tasks: "_startup.yaml"
+    when: true

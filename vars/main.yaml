@@ -1,0 +1,21 @@
+---
+# Default settings
+config_default_vault: {}
+
+config_default_consul:
+  data_dir: /opt/consul/data
+
+config_default_nomad:
+  data_dir: /opt/nomad/data
+
+# Merge overrides with default configuration
+config_vault:  "{{ config_default_vault  | combine(config_override_vault,  recursive=true) }}"
+config_consul: "{{ config_default_consul | combine(config_override_consul, recursive=true) }}"
+config_nomad:  "{{ config_default_nomad  | combine(config_override_nomad,  recursive=true) }}"
+
+# Assert values
+os_supported:
+  Ubuntu:
+    min_version: '16.04'
+  CentOS:
+    min_version: '6'

@@ -1,0 +1,29 @@
+######################################################################
+# {{ ansible_managed }}
+######################################################################
+[Unit]
+Description="HashiCorp Consul - A service mesh solution"
+Documentation=https://www.consul.io/
+Requires=network-online.target
+After=network-online.target
+ConditionFileNotEmpty=/etc/consul.d/consul.json
+
+[Service]
+Type=notify
+User={{ consul_user | default('consul') }}
+Group={{ consul_group | default('consul') }}
+ExecStart=/usr/bin/consul agent -config-file=/etc/consul.d/consul.json
+ExecReload=/usr/bin/consul reload
+ExecStop=/usr/bin/consul leave
+KillMode=process
+Restart=on-failure
+RestartSec=3
+TimeoutStopSec=30
+StartLimitInterval=60
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target
+######################################################################
+# {{ ansible_managed }}
+######################################################################

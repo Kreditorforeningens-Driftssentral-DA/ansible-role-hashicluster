@@ -1,0 +1,28 @@
+---
+
+- name: CONSUL | Start/enable systemd unit
+  become: true
+  systemd:
+    name: consul
+    masked: no
+    enabled: true
+    state: started
+  when: consul.start
+
+- name: VAULT | Start/enable systemd unit
+  become: true
+  systemd:
+    name: vault
+    masked: no
+    enabled: true
+    state: started
+  when: vault.start
+
+- name: NOMAD | Start/enable systemd unit
+  become: true
+  systemd:
+    name: nomad
+    masked: no
+    enabled: true
+    state: started
+  when: nomad.start

@@ -1,0 +1,32 @@
+---
+# https://www.hashicorp.com/blog/announcing-the-hashicorp-linux-repository/
+# If you set this to false, the official binaries will be downloaded
+use_linux_repository: true
+
+# Create configuration-file from yaml-input
+create_config: true
+
+# Manage service definition file
+configure_service: true
+
+# Application settings
+#   - Specify package-version: '=x.y.z' for ubuntu, -x.y.z for centos
+#
+
+consul:
+  version: ''
+  skip_install: true
+  start: false
+config_override_consul: {}
+
+vault:
+  version: ''
+  skip_install: true
+  start: false
+config_override_vault: {}
+
+nomad:
+  version: ''
+  skip_install: true
+  start: false
+config_override_nomad: {}

@@ -1,0 +1,30 @@
+---
+
+- name: CONSUL | Install & configure autocomplete
+  become: true
+  command:
+    cmd: "{{ item }}"
+    creates: /etc/consul.d/consul.json
+  loop:
+    - /usr/bin/consul -autocomplete-install
+    - /bin/bash -c 'complete -C /usr/bin/consul consul'
+
+- name: CONSUL | create settings-file
+  become: true
+  notify:
+    - reload_daemon
+  copy:
+    content: "{{ config_consul | to_nice_json }}"
+    dest: '/etc/consul.d/consul.json'
+    owner: "{{ consul_user | default('consul')}}"
+    group: "{{ consul_group | default('consul') }}"
+    mode: '0755'
+
+- name: NOMAD | Install & configure autocomplete
+  become: true
+  command:
+    cmd: "{{ item }}"
+    creates: /etc/nomad.d/nomad.json
+  loop:
+    - /usr/bin/nomad -autocomplete-install
+    - /bin/bash -c 'complete -C /usr/bin/nomad nomad'

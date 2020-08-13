@@ -1,0 +1,27 @@
+# This is a playbook to execute Ansible tests.
+---
+
+- name: Verify
+  hosts: all
+
+  tasks:
+    - name: Example assertion
+      assert:
+        that: true
+
+    - name: VERIFY | Copy script(s)
+      copy:
+        src: "../scripts/{{ item }}"
+        dest: "/tmp/{{ item }}"
+        owner: root
+        group: root
+        mode: '0644'
+      loop:
+        - test-1.sh
+      when: false
+
+    - name: VERIFY | Run scripts
+      script:
+        cmd: "{{ item }}"
+      loop:
+        - ../scripts/vault-init.sh

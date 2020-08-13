@@ -1,0 +1,21 @@
+---
+dependency:
+  name: galaxy
+
+driver:
+  name: docker
+
+provisioner:
+  name: ansible
+  log: false
+  playbooks:
+    #create: '../resources/playbooks/create.yml'
+    #prepare: '../resources/playbooks/prepare.yml'
+    converge: '../_resources/playbooks/converge.yml'
+    verify:   '../_resources/playbooks/verify.yml'
+    #destroy: '../resources/playbooks/destroy.yml'
+    #cleanup: '../resources/playbooks/cleanup.yml'
+
+verifier:
+  name: ansible
+  enabled: true

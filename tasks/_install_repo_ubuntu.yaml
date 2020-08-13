@@ -1,0 +1,52 @@
+---
+
+- name: UBUNTU | Add required OS packages
+  become: true
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - gpg-agent
+    #- apt-transport-https
+    #- software-properties-common
+
+- name: UBUNTU | Add HashiCorp repository gpg-key
+  become: true
+  apt_key:
+    url: https://apt.releases.hashicorp.com/gpg
+    state: present
+
+- name: UBUNTU | Add HashiCorp official repository
+  become: true
+  apt_repository:
+    repo: "deb [arch=amd64] https://apt.releases.hashicorp.com {{ ansible_distribution_release | lower }} main"
+    state: present
+    mode: '0644'
+    update_cache: true
+
+- name: UBUNTU | Install Consul package ({{ consul.version | default('latest') }})
+  become: true
+  apt:
+    name: consul{{ consul.version | default('')}}
+    state: present
+    update_cache: true
+    cache_valid_time: 3600
+  when: not consul.skip_install | default(true)
+
+- name: UBUNTU | Install Vault package ({{ vault.version | default('latest') }})
+  become: true
+  apt:
+    name: vault{{ vault.version | default('')}}
+    state: present
+    update_cache: true
+    cache_valid_time: 3600
+  when: not vault.skip_install | default(true)
+
+- name: UBUNTU | Install Nomad package ({{ nomad.version | default('latest') }})
+  become: true
+  apt:
+    name: nomad{{ nomad.version | default('')}}
+    state: present
+    update_cache: true
+    cache_valid_time: 3600
+  when: not nomad.skip_install | default(true)

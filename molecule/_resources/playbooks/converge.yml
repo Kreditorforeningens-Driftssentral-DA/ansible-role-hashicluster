@@ -1,0 +1,78 @@
+---
+- name: Converge
+  hosts: all
+
+  pre_tasks:
+
+    - name: PRE-TASK | REDHAT | install packages
+      package:
+        name:
+          - sudo
+          - iproute
+        state: present
+      when: ansible_os_family == "RedHat"
+
+    - name: PRE-TASK | DEBIAN | Update apt-cache
+      apt:
+        update_cache: true
+        cache_valid_time: 600
+      when: ansible_os_family == 'Debian'
+
+    - name: PRE-TASK | SYSTEMD | Wait for initialization
+      command: systemctl is-system-running
+      register: systemctl_status
+      until: >
+        'running' in systemctl_status.stdout or
+        'degraded' in systemctl_status.stdout
+      retries: 30
+      delay: 5
+      when: ansible_service_mgr == 'systemd'
+      changed_when: false
+      failed_when: systemctl_status.rc > 1
+
+  tasks:
+    - name: MOLECULE | ansible-role-hashicluster
+      include_role:
+        name: ansible-role-hashicluster
+      vars:
+        # Enable installation(s)
+        consul:
+          skip_install: false
+          start: true
+        vault:
+          skip_install: false
+          start: true
+        nomad:
+          skip_install: false
+          start: true
+
+        # Configure Consul
+        config_override_consul:
+          server: true
+          bootstrap_expect: 1
+          bind_addr: "0.0.0.0"
+          client_addr: "0.0.0.0"
+          ui: true
+          retry_join:
+            - "127.0.0.1"
+
+        # Configure Vault
+        config_override_vault:
+          cluster_addr: "https://127.0.0.1:8201"
+          api_addr: "http://127.0.0.1:8200"
+          storage:
+            consul: {}
+          listener:
+            tcp:
+              address: "0.0.0.0:8200"
+              tls_disable: 1
+          ui: true
+
+        # Configure Nomad
+        config_override_nomad:
+          bind_addr: "0.0.0.0"
+          server:
+            enabled: true
+            bootstrap_expect: 1
+          client:
+            enabled: true
