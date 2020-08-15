@@ -19,7 +19,7 @@ Dependencies
 Testing
 -----
 
-Molecule i sused for testing. Initialization:
+Molecule & github pipeline is used for testing. Local Initialization:
 ```bash
 molecule init scenario -r <EXISTING ROLE>
 ```
