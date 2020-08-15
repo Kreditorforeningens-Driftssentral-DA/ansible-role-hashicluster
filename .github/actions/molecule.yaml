@@ -11,11 +11,12 @@ inputs:
     default: 'World'
 
 outputs:
-  output-value:
-    description: "Random number"
-    value: ${{ steps.random-number-generator.outputs.random-id }}
+  result:
+    description: Resulting string
+    value: "{{ inputs.greeting }}, {{ who-inputs.to-greet }}"
 
 runs:
   using: "composite"
   steps:
-    - run: echo "{{ inputs.greeting }}, {{ who-inputs.to-greet }}!"
+    - run: echo "{{ outputs.result.description }} is {{ outputs.result }}"
+      shell: bash
