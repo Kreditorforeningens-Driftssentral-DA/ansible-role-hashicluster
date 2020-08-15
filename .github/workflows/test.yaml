@@ -3,10 +3,7 @@ name: Testing Workflow
 on:
   push:
     branches:
-      - initial
-    paths:
-      - 'molecule/*'
-
+      - '!master'
 
 jobs:
   example:
