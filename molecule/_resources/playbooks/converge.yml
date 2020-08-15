@@ -1,24 +1,12 @@
+# INFO:
+#   This is a playbook to execute for testing
+#   this role
 ---
 - name: Converge
   hosts: all
 
   pre_tasks:
-
-    - name: PRE-TASK | REDHAT | install packages
-      package:
-        name:
-          - sudo
-          - iproute
-        state: present
-      when: ansible_os_family == "RedHat"
-
-    - name: PRE-TASK | DEBIAN | Update apt-cache
-      apt:
-        update_cache: true
-        cache_valid_time: 600
-      when: ansible_os_family == 'Debian'
-
-    - name: PRE-TASK | SYSTEMD | Wait for initialization
+    - name: PRE-TASK | Wait for systemd initialization
       command: systemctl is-system-running
       register: systemctl_status
       until: >
@@ -26,25 +14,23 @@
         'degraded' in systemctl_status.stdout
       retries: 30
       delay: 5
-      when: ansible_service_mgr == 'systemd'
       changed_when: false
       failed_when: systemctl_status.rc > 1
+      when: ansible_service_mgr == 'systemd'
 
   tasks:
-    - name: MOLECULE | ansible-role-hashicluster
+    - name: MOLECULE | include hashicluster role
       include_role:
         name: ansible-role-hashicluster
       vars:
         # Enable installation(s)
-        consul:
-          skip_install: false
-          start: true
-        vault:
-          skip_install: false
-          start: true
-        nomad:
-          skip_install: false
-          start: true
+        #consul_install: false
+        #consul_version: '1.7.2'
+        #consul_start: true
+        #vault_install: true
+        #vault_start: true
+        #nomad_install: false
+        #nomad_start: true
 
         # Configure Consul
         config_override_consul:

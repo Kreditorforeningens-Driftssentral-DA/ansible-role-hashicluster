@@ -10,7 +10,7 @@
     owner: "{{ consul_user | default('consul')}}"
     group: "{{ consul_group | default('consul') }}"
     mode: '0755'
-  when: not consul.skip_install
+  when: consul_install
 
 # Create Consul configuration
 - name: VAULT | Create settings-file
@@ -23,7 +23,7 @@
     owner: "{{ vault_user | default('vault')}}"
     group: "{{ vault_group | default('vault') }}"
     mode: '0755'
-  when: not vault.skip_install
+  when: vault_install
 
 # Create Consul configuration
 - name: NOMAD | Create settings-file
@@ -36,4 +36,4 @@
     owner: "{{ nomad_user | default('nomad')}}"
     group: "{{ nomad_group | default('nomad') }}"
     mode: '0755'
-  when: not nomad.skip_install
+  when: nomad_install

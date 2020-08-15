@@ -13,7 +13,9 @@
     owner: root
     group: root
     mode: '0440'
-  when: not consul.skip_install
+  when:
+    - consul_install
+    - consul_service_configure
 
   # Modify the default service definition / systemd unit
 - name: VAULT | Update Systemd Unit file
@@ -28,7 +30,9 @@
     owner: root
     group: root
     mode: '0440'
-  when: not vault.skip_install
+  when:
+    - vault_install
+    - vault_service_configure
 
   # Modify the default service definition / systemd unit
 - name: NOMAD | Update Systemd Unit file
@@ -43,7 +47,9 @@
     owner: root
     group: root
     mode: '0440'
-  when: not nomad.skip_install
+  when:
+    - nomad_install
+    - nomad_service_configure
 
 - name: Systemd unit definitions modified
   meta: flush_handlers

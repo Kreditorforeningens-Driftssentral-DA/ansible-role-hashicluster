@@ -19,11 +19,11 @@ provisioner:
     #cleanup: '../resources/playbooks/cleanup.yml'
 
 verifier:
-  name: testinfra # ansible
-  enabled: false
-  directory: ../_resources/tests/
-  env:
-    FOO: bar
+  name: ansible #testinfra
+  enabled: true
+  #directory: ../_resources/tests/
+  #env:
+  #  FOO: bar
 
 platforms:
   - name: mlc-hashicluster-centos
@@ -41,6 +41,9 @@ platforms:
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
     tmpfs:
-      - /tmp
-      - /run
+      - '/tmp'
+      - '/run'
+      - '/run/lock'
+    #  - '/sys/fs/cgroup'
+    #  - '/var/lib/journal'
     tty: true

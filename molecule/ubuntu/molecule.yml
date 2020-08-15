@@ -11,12 +11,12 @@ provisioner:
   env:
     CUSTOM_INFO: ubuntu-1804
   playbooks:
-    #create: '../resources/playbooks/create.yml'
-    #prepare: '../resources/playbooks/prepare.yml'
+    #create:  '../_resources/playbooks/create.yml'
+    prepare:  '../_resources/playbooks/prepare.yml'
     converge: '../_resources/playbooks/converge.yml'
     verify:   '../_resources/playbooks/verify.yml'
-    #destroy: '../resources/playbooks/destroy.yml'
-    #cleanup: '../resources/playbooks/cleanup.yml'
+    #destroy: '../_resources/playbooks/destroy.yml'
+    #cleanup: '../_resources/playbooks/cleanup.yml'
 
 verifier:
   name: ansible
@@ -24,11 +24,11 @@ verifier:
 
 platforms:
   - name: 'mlc-hashicluster-ubuntu'
-    image: 'geerlingguy/docker-ubuntu1804-ansible' #'ubuntu:18.04'
+    image: 'geerlingguy/docker-ubuntu2004-ansible' #'ubuntu:18.04'
+    command: '/sbin/init'
     privileged: true
     security_opts:
       - seccomp=unconfined
-    command: '/sbin/init'
     environment:
       container: docker
     published_ports:
@@ -36,8 +36,11 @@ platforms:
       - '0.0.0.0:8500:8500/tcp'
       - '0.0.0.0:4646:4646/tcp'
     volumes:
-      - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
+      - '/sys/fs/cgroup:/sys/fs/cgroup:rw'
     tmpfs:
       - '/tmp'
       - '/run'
+      - '/run/lock'
+    #  - '/sys/fs/cgroup'
+    #  - '/var/lib/journal'
     tty: true

@@ -1,0 +1,73 @@
+---
+
+# ADD HASHICORP OFFICIAL PREPOSITORY
+
+- name: UBUNTU | OS-specific tasks
+  block:
+    - set_fact:
+        version_delim: "="
+
+    - name: UBUNTU | Add required package
+      become: true
+      apt:
+        name: gpg-agent
+        state: present
+
+    - name: UBUNTU | Add HashiCorp repository gpg-key
+      become: true
+      apt_key:
+        url: https://apt.releases.hashicorp.com/gpg
+        state: present
+
+    - name: UBUNTU | Add HashiCorp official repository
+      become: true
+      apt_repository:
+        repo: "deb [arch=amd64] https://apt.releases.hashicorp.com {{ ansible_distribution_release | lower }} main"
+        state: present
+        mode: '0644'
+        update_cache: true
+  when: ansible_distribution | lower == 'ubuntu'
+
+- name: CENTOS | OS-specific tasks
+  block:
+    - set_fact:
+        version_delim: "-"
+
+    - name: CENTOS | Add required package
+      become: true
+      yum:
+        name: yum-utils
+        state: present
+
+    - name: CENTOS | Add HashiCorp official repository
+      become: true
+      get_url:
+        url: "https://rpm.releases.hashicorp.com/{{ release }}/hashicorp.repo"
+        dest: /etc/yum.repos.d/HashiCorp.repo
+        mode: '0644'
+      vars:
+        release: RHEL
+  when: ansible_distribution | lower == 'centos'
+
+# INSTALL APPLICATION(S)
+
+- name: INSTALL | Consul ({{ consul_version }})
+  become: true
+  package:
+    name: "consul{{ version_delim }}{{ consul_version }}"
+    state: present
+  when: consul_install
+
+- name: INSTALL | Vault ({{ vault_version }})
+  become: true
+  package:
+    name: "vault{{ version_delim }}{{ vault_version }}"
+    state: present
+  when: vault_install
+
+- name: INSTALL | Nomad ({{ nomad_version }})
+  become: true
+  package:
+    name: "nomad{{ version_delim }}{{ nomad_version }}"
+    state: present
+  when: nomad_install

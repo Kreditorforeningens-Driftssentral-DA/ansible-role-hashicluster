@@ -1,0 +1,21 @@
+---
+name: 'example action'
+description: 'just for testing'
+
+inputs:
+  greeting:
+    required: true
+    default: 'Hello'
+  who-to-greet:
+    required: true
+    default: 'World'
+
+outputs:
+  output-value:
+    description: "Random number"
+    value: ${{ steps.random-number-generator.outputs.random-id }}
+
+runs:
+  using: "composite"
+  steps:
+    - run: echo "{{ inputs.greeting }}, {{ who-inputs.to-greet }}!"

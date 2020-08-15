@@ -7,7 +7,9 @@
     masked: no
     enabled: true
     state: started
-  when: consul.start
+  when:
+    - consul_install
+    - consul_service_start
 
 - name: VAULT | Start/enable systemd unit
   become: true
@@ -16,7 +18,9 @@
     masked: no
     enabled: true
     state: started
-  when: vault.start
+  when:
+    - vault_install
+    - vault_service_start
 
 - name: NOMAD | Start/enable systemd unit
   become: true
@@ -25,4 +29,6 @@
     masked: no
     enabled: true
     state: started
-  when: nomad.start
+  when:
+    - vault_install
+    - nomad_service_start
