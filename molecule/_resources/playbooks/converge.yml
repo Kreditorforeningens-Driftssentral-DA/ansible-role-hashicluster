@@ -1,0 +1,64 @@
+# INFO:
+#   This is a playbook to execute for testing
+#   this role
+---
+- name: Converge
+  hosts: all
+
+  pre_tasks:
+    - name: PRE-TASK | Wait for systemd initialization
+      command: systemctl is-system-running
+      register: systemctl_status
+      until: >
+        'running' in systemctl_status.stdout or
+        'degraded' in systemctl_status.stdout
+      retries: 30
+      delay: 5
+      changed_when: false
+      failed_when: systemctl_status.rc > 1
+      when: ansible_service_mgr == 'systemd'
+
+  tasks:
+    - name: MOLECULE | include hashicluster role
+      include_role:
+        name: ansible-role-hashicluster
+      vars:
+        # Enable installation(s)
+        #consul_install: false
+        #consul_version: '1.7.2'
+        #consul_start: true
+        #vault_install: true
+        #vault_start: true
+        #nomad_install: false
+        #nomad_start: true
+
+        # Configure Consul
+        config_override_consul:
+          server: true
+          bootstrap_expect: 1
+          bind_addr: "0.0.0.0"
+          client_addr: "0.0.0.0"
+          ui: true
+          retry_join:
+            - "127.0.0.1"
+
+        # Configure Vault
+        config_override_vault:
+          cluster_addr: "https://127.0.0.1:8201"
+          api_addr: "http://127.0.0.1:8200"
+          storage:
+            consul: {}
+          listener:
+            tcp:
+              address: "0.0.0.0:8200"
+              tls_disable: 1
+          ui: true
+
+        # Configure Nomad
+        config_override_nomad:
+          bind_addr: "0.0.0.0"
+          server:
+            enabled: true
+            bootstrap_expect: 1
+          client:
+            enabled: true

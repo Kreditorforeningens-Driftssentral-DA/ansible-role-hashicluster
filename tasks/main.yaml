@@ -1,0 +1,53 @@
+---
+
+# --------------------------------------------------------------------------------
+#   PREPARATION
+# --------------------------------------------------------------------------------
+
+- name: PRE | VALIDATE REQUIREMENTS
+  assert:
+    that:
+      - ansible_distribution in os_supported
+    fail_msg: "{{ ansible_distribution }} is not supported. Aborting.."
+    success_msg: "{{ ansible_distribution }} is supported. Continuing installation"
+    quiet: true
+
+- name: PRE | VALIDATION PASSED
+  block:
+
+# --------------------------------------------------------------------------------
+#   INSTALLATION
+# --------------------------------------------------------------------------------
+
+    - include_tasks: "_install_repository.yaml"
+      when: use_linux_repository
+
+# --------------------------------------------------------------------------------
+#   CONFIGURATION
+# --------------------------------------------------------------------------------
+
+    - include_tasks: "_config_create.yaml"
+      when: true
+
+    - include_tasks: "_service_systemd_config.yaml"
+      when:
+        - ansible_service_mgr | lower == 'systemd'
+        - consul_service_configure or
+          vault_service_configure or
+          nomad_service_configure
+
+    - include_tasks: "_extra.yaml"
+      when: |
+        consul_autocomplete or
+        nomad_autocomplete
+
+# --------------------------------------------------------------------------------
+#   FINALIZATION
+# --------------------------------------------------------------------------------
+
+    - include_tasks: "_service_systemd_start.yaml"
+      when:
+        - ansible_service_mgr | lower == 'systemd'
+        - consul_service_start or
+          vault_service_start or
+          nomad_service_start

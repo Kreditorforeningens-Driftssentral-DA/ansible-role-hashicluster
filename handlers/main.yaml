@@ -1,0 +1,24 @@
+---
+
+- name: reload_daemon
+  become: true
+  systemd:
+    daemon_reload: true
+
+- name: restart_vault
+  become: true
+  systemd:
+    name: vault
+    state: reloaded
+
+- name: restart_consul
+  become: true
+  systemd:
+    name: consul
+    state: reloaded
+
+- name: restart_nomad
+  become: true
+  systemd:
+    name: nomad
+    state: reloaded

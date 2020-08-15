@@ -1,0 +1,5 @@
+---
+- hosts: localhost
+  remote_user: root
+  roles:
+    - /mnt/c/GitHub/Kreditorforeningens-Driftssentral-DA/ansible-role-hashicluster

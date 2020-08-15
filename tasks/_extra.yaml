@@ -1,0 +1,25 @@
+---
+
+- name: CONSUL | Autocomplete - install & configure
+  become: true
+  command:
+    cmd: "{{ item }}"
+    creates: /etc/consul.d/consul.json
+  loop:
+    - /usr/bin/consul -autocomplete-install
+    - /bin/bash -c 'complete -C /usr/bin/consul consul'
+  when:
+    - consul_install
+    - consul_autocomplete
+
+- name: NOMAD | Autocomplete - install & configure
+  become: true
+  command:
+    cmd: "{{ item }}"
+    creates: /etc/nomad.d/nomad.json
+  loop:
+    - /usr/bin/nomad -autocomplete-install
+    - /bin/bash -c 'complete -C /usr/bin/nomad nomad'
+  when:
+    - nomad_install
+    - nomad_autocomplete

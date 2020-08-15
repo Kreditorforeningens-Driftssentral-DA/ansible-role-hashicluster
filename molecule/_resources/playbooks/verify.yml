@@ -1,0 +1,40 @@
+# INFO:
+#   This is a playbook with tests to execute after
+#   the role is applied to image
+---
+
+- name: Verify
+  hosts: all
+
+  pre_tasks:
+    - name: VERIFY | Add required packages
+      become: true
+      package:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - jq
+      when: 
+
+  tasks:
+
+    - name: VERIFY | Copy script(s)
+      copy:
+        src: "../scripts/{{ item }}"
+        dest: "/tmp/{{ item }}"
+        owner: root
+        group: root
+        mode: '0644'
+      loop:
+        - test-1.sh
+      when: false
+
+    - name: VERIFY | Run scripts
+      script:
+        cmd: "{{ item }}"
+      register: script_output
+      loop:
+        - ../scripts/vault-init.sh
+
+    - debug:
+        var: script_output.results[0].stdout_lines
