@@ -1,22 +1,49 @@
+# DOCS:
+#   - https://github.com/ansible-community/molecule
+#   - https://molecule.readthedocs.io/en/latest/
 ---
-name: 'example action'
-description: 'just for testing'
+name: Molecule for Ansible Role Testing
+description: Ansible Role Testing with Molecule
+auhor: Rune Ronneseth <rune.ronneseth@kred.no>
 
 inputs:
-  greeting:
-    required: true
-    default: 'Hello'
-  who-to-greet:
-    required: true
-    default: 'World'
-
-outputs:
-  result:
-    description: Resulting string
-    value: "{{ inputs.greeting }}, {{ who-inputs.to-greet }}"
+  docker-image-base:
+    description: The docker image to use
+    required: false
+    default: quay.io/ansible/molecule
+  docker-image-tag:
+    description: The docker image tag to use
+    required: false
+    default: latest
+  molecule-command:
+    description: The [molecule]("https://molecule.readthedocs.io/en/latest/") command to execute
+    required: false
+    default: test
+  molecule-scenario:
+    description: The molecule scenario to use
+    required: false
+    default: default
+  molecule-rootdir:
+    description: The directory to run molecule from
+    required: false
+    default: /github/workspace
 
 runs:
-  using: "composite"
-  steps:
-    - run: echo "{{ outputs.result.description }} is {{ outputs.result }}"
-      shell: bash
+  using: docker
+  image: quay.io/ansible/molecule:3.0.6 # latest
+  env:
+    IMAGE: ${{ inputs.docker-image-base }}
+    TAG: ${{ inputs.docker-image-tag }}
+    COMMAND: ${{ inputs.molecule-command }}
+    SCENARIO: ${{ inputs.molecule-scenario }}
+    ROOTDIR: ${{ inputs.molecule-rootdir }}
+  args:
+    - cd ${ROOTDIR}
+    - pwd
+    - /usr/bin/molecule ${COMMAND} -s ${SCENARIO}"
+  #entrypoint:
+
+# https://haya14busa.github.io/github-action-brandings/
+branding:
+  icon: check
+  color: green

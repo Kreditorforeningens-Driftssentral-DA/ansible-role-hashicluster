@@ -1,5 +1,5 @@
 ---
-name: Molecule Check
+name: Check Ansible Role
 on:
   push:
     branches:
@@ -13,10 +13,11 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Output versions
-        run: |
-          terraform version
-          molecule --version
-      - name: Molecule Check (custom)
-        uses: ./.github/actions/ansible-role-check
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Molecule Check
+        id: molecule
+        uses: ./ #./.github/actions/molecule
+        with:
+          molecule-command: converge
+          molecule-scenario: centos
