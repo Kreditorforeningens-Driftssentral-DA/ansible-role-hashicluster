@@ -27,19 +27,19 @@ inputs:
     default: default
 
 runs:
+  # https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions#runs-for-docker-actions
   using: docker
   image: quay.io/ansible/molecule:3.0.6 # latest
   env:
-    MLC_WORKDIR: 
+    #MLC_WORKDIR: . 
     MLC_COMMAND: ${{ inputs.molecule-command }}
     MLC_SCENARIO: ${{ inputs.molecule-scenario }}
-  entrypoint: /bin/sh #/usr/bin/molecule
+  pre-entrypoint: env
+  entrypoint: /usr/bin/molecule # /bin/sh
   args:
-    - "-c"
-    - "ls -lts"
-    #- "${MLC_COMMAND}"
-    #- "-s"
-    #- "${MLC_SCENARIO}"
+    - "${MLC_COMMAND}"
+    - "-s"
+    - "${MLC_SCENARIO}"
 
 # https://haya14busa.github.io/github-action-brandings/
 branding:

@@ -14,10 +14,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          path: "/ansible-role-hashicluster"
-      - run: env && ls -lts
+        uses: actions/checkout@v2 # Sets the GITHUB_REPOSITORY variable
+
+      - run: ln -s ${GITHUB_WORKSPACE} ${GITHUB_WORKSPACE}/ansible-role-hashicluster
+
       - name: Test Ansible role (Ubuntu)
         uses: ./.github/actions/molecule
         with:
