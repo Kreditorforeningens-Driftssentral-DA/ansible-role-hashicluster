@@ -21,7 +21,7 @@
   tasks:
     - name: MOLECULE | include hashicluster role
       include_role:
-        name: ansible-role-hashicluster #hashicluster
+        name: hashicluster # ansible-role-hashicluster
       vars:
         # Enable installation(s)
         #consul_install: false
