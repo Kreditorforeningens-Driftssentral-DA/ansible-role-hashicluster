@@ -15,15 +15,16 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v2
-        with:
-          path: "${{ github.repository }}"
+        #with:
+        #  path: "${{ github.repository }}"
 
       - run: |
           pwd
-          ls -lts
+          ls -lts 
+          echo $GITHUB_REPOSITORY
 
       - name: molecule
-        uses: "${{ github.repository }}/.github/actions/molecule"
+        uses: ./.github/actions/molecule
         with:
           molecule-command: test
           molecule-scenario: ubuntu
