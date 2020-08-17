@@ -15,8 +15,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        #with:
-        #  path: "${{ github.repository }}"
+        with:
+          path: "/ansible-role-hashicluster"
       - run: env && ls -lts
       - name: Test Ansible role (Ubuntu)
         uses: ./.github/actions/molecule

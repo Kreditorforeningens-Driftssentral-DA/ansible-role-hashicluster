@@ -1,20 +1,27 @@
 # DOCS:
 #   - https://github.com/ansible-community/molecule
 #   - https://molecule.readthedocs.io/en/latest/
+#
+#  PWD=/home/runner/work/ansible-role-hashicluster/ansible-role-hashicluster
+#  RUNNER_WORKSPACE=/home/runner/work/ansible-role-hashicluster
+#  GITHUB_REPOSITORY=Kreditorforeningens-Driftssentral-DA/ansible-role-hashicluster
+#  GITHUB_WORKSPACE=/home/runner/work/ansible-role-hashicluster/ansible-role-hashicluster
+#  --workdir /github/workspace
+#  -v "/home/runner/work/ansible-role-hashicluster/ansible-role-hashicluster":"/github/workspace"
 ---
 name: Molecule for Ansible Role Testing
 description: Ansible Role Testing with Molecule
 
 inputs:
-  molecule_workdir:
+  molecule-workdir:
     description: The [molecule]("https://molecule.readthedocs.io/en/latest/") working directory
     required: false
     default: '${GITHUB_REPOSITORY}'
-  molecule_command:
+  molecule-command:
     description: The [molecule]("https://molecule.readthedocs.io/en/latest/") command to execute
     required: false
     default: list
-  molecule_scenario:
+  molecule-scenario:
     description: The [molecule]("https://molecule.readthedocs.io/en/latest/") scenario to use
     required: false
     default: default
@@ -24,12 +31,15 @@ runs:
   image: quay.io/ansible/molecule:3.0.6 # latest
   env:
     MLC_WORKDIR: 
-    MLC_COMMAND: ${{ inputs.molecule_command }}
-    MLC_SCENARIO: ${{ inputs.molecule_scenario }}
-  entrypoint: /bin/sh
+    MLC_COMMAND: ${{ inputs.molecule-command }}
+    MLC_SCENARIO: ${{ inputs.molecule-scenario }}
+  entrypoint: /bin/sh #/usr/bin/molecule
   args:
     - "-c"
-    - "/usr/bin/molecule ${MLC_COMMAND} -s ${MLC_SCENARIO}"
+    - "ls -lts"
+    #- "${MLC_COMMAND}"
+    #- "-s"
+    #- "${MLC_SCENARIO}"
 
 # https://haya14busa.github.io/github-action-brandings/
 branding:
