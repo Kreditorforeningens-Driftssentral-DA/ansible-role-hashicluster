@@ -37,7 +37,7 @@ runs:
   entrypoint: /bin/ash #/usr/bin/molecule
   args:
     - -c
-    - ls -lts
+    - ansible-galaxy role list -p ../
     #- test
     #- -s
     #- ubuntu
