@@ -36,9 +36,7 @@ runs:
   entrypoint: /bin/ash #/usr/bin/molecule
   args:
     - "-c"
-    - "ln -s $(pwd) /tmp/${GITHUB_REPOSITORY};"
-    - "cd /tmp/$GITHUB_REPOSITORY;"
-    - "/usr/bin/molecule ${COMMAND} -s ${SCENARIO:-default}"
+    - "ln -s /github/workspace /tmp/${GITHUB_REPOSITORY} && cd /tmp/$GITHUB_REPOSITORY && /usr/bin/molecule ${COMMAND} -s ${SCENARIO:-default}"
 
 # https://haya14busa.github.io/github-action-brandings/
 branding:
