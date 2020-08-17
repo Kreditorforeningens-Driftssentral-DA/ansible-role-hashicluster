@@ -4,7 +4,7 @@
 ---
 name: Molecule for Ansible Role Testing
 description: Ansible Role Testing with Molecule
-auhor: Rune Ronneseth <rune.ronneseth@kred.no>
+#auhor: Rune Ronneseth <rune.ronneseth@kred.no>
 
 inputs:
   docker-image-base:
@@ -38,9 +38,9 @@ runs:
     SCENARIO: ${{ inputs.molecule-scenario }}
     ROOTDIR: ${{ inputs.molecule-rootdir }}
   args:
-    - cd ${ROOTDIR}
-    - pwd
-    - /usr/bin/molecule ${COMMAND} -s ${SCENARIO}"
+    - "/bin/sh"
+    - "-c"
+    - "cd ${ROOTDIR} && /usr/bin/molecule ${COMMAND} -s ${SCENARIO}"
   #entrypoint:
 
 # https://haya14busa.github.io/github-action-brandings/
