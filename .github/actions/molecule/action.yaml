@@ -4,42 +4,18 @@
 ---
 name: Molecule for Ansible Role Testing
 description: Ansible Role Testing with Molecule
-#auhor: Rune Ronneseth <rune.ronneseth@kred.no>
 
 inputs:
-  #docker-image-base:
-  #  description: The docker image to use
-  #  required: false
-  #  default: quay.io/ansible/molecule
-  #docker-image-tag:
-  #  description: The docker image tag to use
-  #  required: false
-  #  default: latest
-  molecule-command:
-    description: |
-      The [molecule]("https://molecule.readthedocs.io/en/latest/") command to execute
-      Commands:
-        check        Use the provisioner to perform a Dry-Run...
-        cleanup      Use the provisioner to cleanup any changes...
-        converge     Use the provisioner to configure instances...
-        create       Use the provisioner to start the instances.
-        dependency   Manage the role's dependencies.
-        destroy      Use the provisioner to destroy the instances.
-        idempotence  Use the provisioner to configure the...
-        init         Initialize a new role or scenario.
-        lint         Lint the role.
-        list         Lists status of instances.
-        login        Log in to one instance.
-        matrix       List matrix of steps used to test instances.
-        prepare      Use the provisioner to prepare the instances...
-        side-effect  Use the provisioner to perform side-effects...
-        syntax       Use the provisioner to syntax check the role.
-        test         Test (lint, cleanup, destroy, dependency,...
-        verify       Run automated tests against instances.
+  molecule_workdir:
+    description: The [molecule]("https://molecule.readthedocs.io/en/latest/") working directory
+    required: false
+    default: '${GITHUB_REPOSITORY}'
+  molecule_command:
+    description: The [molecule]("https://molecule.readthedocs.io/en/latest/") command to execute
     required: false
     default: list
-  molecule-scenario:
-    description: The molecule scenario to use
+  molecule_scenario:
+    description: The [molecule]("https://molecule.readthedocs.io/en/latest/") scenario to use
     required: false
     default: default
 
@@ -47,14 +23,13 @@ runs:
   using: docker
   image: quay.io/ansible/molecule:3.0.6 # latest
   env:
-    MOLECULE_COMMAND: ${{ inputs.molecule-command }}
-    MOLECULE_SCENARIO: ${{ inputs.molecule-scenario }}
-    #ANSIBLE_ROLES_PATH: ${{ inputs.molecule-rootdir }}
+    MLC_WORKDIR: 
+    MLC_COMMAND: ${{ inputs.molecule_command }}
+    MLC_SCENARIO: ${{ inputs.molecule_scenario }}
+  entrypoint: /bin/sh
   args:
-    - "/bin/sh"
     - "-c"
-    - "/usr/bin/molecule ${MOLECULE_COMMAND} -s ${MOLECULE_SCENARIO}"
-  #entrypoint:
+    - "/usr/bin/molecule ${MLC_COMMAND} -s ${MLC_SCENARIO}"
 
 # https://haya14busa.github.io/github-action-brandings/
 branding:

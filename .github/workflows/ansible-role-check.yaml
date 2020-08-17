@@ -10,16 +10,16 @@ on:
       - master
 
 jobs:
-  check:
+  molecule-test:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v2
         with:
           path: "${{ github.repository }}"
-      - name: Molecule Check
-        id: molecule
-        uses: ./.github/actions/molecule #./
+      - run: ls -lts
+      - name: Test Ansible role (Ubuntu)
+        uses: ./.github/actions/molecule
         with:
-          molecule-command: converge
-          molecule-scenario: centos
+          molecule-command: test
+          molecule-scenario: ubuntu

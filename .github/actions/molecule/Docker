@@ -1,4 +1,0 @@
-FROM quay.io/ansible/molecule:3.0.6
-
-CMD 
-#ENTRYPOINT ["/usr/bin/molecule"]
