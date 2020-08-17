@@ -36,7 +36,7 @@ runs:
   entrypoint: /bin/sh
   args:
     - "-c"
-    - "ln -s /github/workspace /tmp/$GITHUB_REPOSITORY && cd /tmp/$GITHUB_REPOSITORY && /usr/bin/molecule $COMMAND -s $SCENARIO"
+    - "'ln -s /github/workspace /tmp/$GITHUB_REPOSITORY && cd /tmp/$GITHUB_REPOSITORY && /usr/bin/molecule $COMMAND -s $SCENARIO'"
 
 # https://haya14busa.github.io/github-action-brandings/
 branding:
