@@ -34,7 +34,8 @@ runs:
     COMMAND: ${{ inputs.molecule-command }}
     SCENARIO: ${{ inputs.molecule-scenario }}
   entrypoint: /bin/sh #/usr/bin/molecule
-  args: "-c \"ln -s /github/workspace /tmp/${GITHUB_REPOSITORY} && cd /tmp/$GITHUB_REPOSITORY && /usr/bin/molecule ${COMMAND} -s ${SCENARIO:-default}\""
+  args:
+    - "-c \"ln -s /github/workspace /tmp/${GITHUB_REPOSITORY} && cd /tmp/$GITHUB_REPOSITORY && /usr/bin/molecule ${COMMAND} -s ${SCENARIO:-default}\""
 
 # https://haya14busa.github.io/github-action-brandings/
 branding:
