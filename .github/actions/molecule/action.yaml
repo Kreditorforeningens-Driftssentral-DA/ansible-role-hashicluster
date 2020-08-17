@@ -36,6 +36,7 @@ runs:
     MLC_SCENARIO: ${{ inputs.molecule-scenario }}
   entrypoint: /bin/ash #/usr/bin/molecule
   args:
+    - -c
     - ls -lts
     #- test
     #- -s
