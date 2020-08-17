@@ -31,14 +31,13 @@ runs:
   using: docker
   image: quay.io/ansible/molecule:3.0.6 # latest
   env:
-    MLC_COMMAND: ${{ inputs.molecule-command }}
-    MLC_SCENARIO: ${{ inputs.molecule-scenario }}
+    COMMAND: ${{ inputs.molecule-command }}
+    SCENARIO: ${{ inputs.molecule-scenario }}
   entrypoint: /bin/sh #/usr/bin/molecule
   args:
     - "-c"
-    - "export ANSIBLE_ROLES_PATH=/tmp"
-    - "&&"
-    - "ln -s /github/workspace /tmp/ansible-role-hashicluster && ansible-galaxy role list"
+    - "cd ${GITHUB_REPOSITORY};"
+    - "molecule ${COMMAND:-list} -s ${SCENARIO:-default}"
 
 # https://haya14busa.github.io/github-action-brandings/
 branding:
