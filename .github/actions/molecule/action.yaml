@@ -31,15 +31,14 @@ runs:
   using: docker
   image: quay.io/ansible/molecule:3.0.6 # latest
   env:
-    #MLC_WORKDIR: . 
     MLC_COMMAND: ${{ inputs.molecule-command }}
     MLC_SCENARIO: ${{ inputs.molecule-scenario }}
   entrypoint: /bin/ash #/usr/bin/molecule
   args:
-    - -c
-    - export ANSIBLE_ROLES_PATH=/tmp
-    - ln -s `pwd` /tmp
-    - ansible-galaxy role list
+    - "-c"
+    - "export ANSIBLE_ROLES_PATH=/tmp"
+    - "&&"
+    - "ln -s `pwd` /tmp && ansible-galaxy role list"
 
 # https://haya14busa.github.io/github-action-brandings/
 branding:
