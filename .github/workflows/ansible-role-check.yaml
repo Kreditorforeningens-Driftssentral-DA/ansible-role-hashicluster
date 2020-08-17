@@ -18,10 +18,12 @@ jobs:
         with:
           path: "${{ github.repository }}"
 
-      - run: ls -lts
+      - run: |
+          pwd
+          ls -lts
 
       - name: molecule
-        uses: "./.github/actions/molecule"
+        uses: ${GITHUB_REPOSITORY}/.github/actions/molecule
         with:
           molecule-command: test
           molecule-scenario: ubuntu
