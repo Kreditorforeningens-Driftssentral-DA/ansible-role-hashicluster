@@ -1,5 +1,5 @@
 galaxy_info:
-  #role_name: hashicluster
+  role_name: hashicluster
   description: Installs & configures HashiCorp Consul, Vault & Nomad
   license: MIT
   min_ansible_version: 2.9

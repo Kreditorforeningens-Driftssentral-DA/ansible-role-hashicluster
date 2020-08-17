@@ -37,10 +37,7 @@ runs:
   entrypoint: /bin/ash #/usr/bin/molecule
   args:
     - -c
-    - ansible-galaxy role list -p .
-    #- test
-    #- -s
-    #- ubuntu
+    - ansible-galaxy role list -p ../
 
 # https://haya14busa.github.io/github-action-brandings/
 branding:

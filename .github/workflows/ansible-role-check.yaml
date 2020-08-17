@@ -1,5 +1,5 @@
 ---
-name: Check Ansible Role
+name: Check HashiCluster Role
 on:
   workflow_dispatch: {}
   push:
@@ -15,10 +15,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2 # Sets the GITHUB_REPOSITORY variable
-
-      - run: |
-          ln -s ${GITHUB_WORKSPACE} ${GITHUB_WORKSPACE}/ansible-role-hashicluster
-          ls -lts ansible-role-hashicluster/
 
       - name: Test role with Ubuntu
         uses: ./.github/actions/molecule
