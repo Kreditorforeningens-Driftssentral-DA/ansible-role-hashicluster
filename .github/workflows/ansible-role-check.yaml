@@ -23,7 +23,7 @@ jobs:
           ls -lts
 
       - name: molecule
-        uses: ${GITHUB_REPOSITORY}/.github/actions/molecule
+        uses: "${GITHUB_REPOSITORY}/.github/actions/molecule"
         with:
           molecule-command: test
           molecule-scenario: ubuntu
