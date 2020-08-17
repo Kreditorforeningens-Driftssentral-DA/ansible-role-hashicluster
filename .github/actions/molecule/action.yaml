@@ -34,11 +34,12 @@ runs:
     #MLC_WORKDIR: . 
     MLC_COMMAND: ${{ inputs.molecule-command }}
     MLC_SCENARIO: ${{ inputs.molecule-scenario }}
-  entrypoint: /usr/bin/molecule
+  entrypoint: /bin/ash #/usr/bin/molecule
   args:
-    - test
-    - -s
-    - ubuntu
+    - ls -lts
+    #- test
+    #- -s
+    #- ubuntu
 
 # https://haya14busa.github.io/github-action-brandings/
 branding:
