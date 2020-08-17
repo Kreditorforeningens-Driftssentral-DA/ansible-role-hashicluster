@@ -37,7 +37,9 @@ runs:
   entrypoint: /bin/ash #/usr/bin/molecule
   args:
     - -c
-    - ansible-galaxy role list -p ../
+    - export ANSIBLE_ROLES_PATH=/tmp
+    - ln -s `pwd` /tmp
+    - ansible-galaxy role list
 
 # https://haya14busa.github.io/github-action-brandings/
 branding:

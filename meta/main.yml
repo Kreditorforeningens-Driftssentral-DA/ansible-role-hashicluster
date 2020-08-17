@@ -1,18 +1,20 @@
 galaxy_info:
+
   role_name: hashicluster
   description: Installs & configures HashiCorp Consul, Vault & Nomad
-  license: MIT
-  min_ansible_version: 2.9
-
   author: Rune Rønneseth
   company: Kreditorforeningens Driftssentral DA
-  
+
+  license: MIT
+  min_ansible_version: 2.9
+ 
   # https://galaxy.ansible.com/api/v1/platforms/
   platforms:
     - name: Ubuntu
       versions:
         - 20.04
         - 18.04
+        - 16.04
     - name: CentOS
       versions:
         - 8
