@@ -37,9 +37,9 @@ runs:
   pre-entrypoint: env
   entrypoint: /usr/bin/molecule # /bin/sh
   args:
-    - "${MLC_COMMAND}"
-    - "-s"
-    - "${MLC_SCENARIO}"
+    - $MLC_COMMAND
+    - -s
+    - ${MLC_SCENARIO}
 
 # https://haya14busa.github.io/github-action-brandings/
 branding:
