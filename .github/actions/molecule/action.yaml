@@ -29,13 +29,13 @@ inputs:
 runs:
   # https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions#runs-for-docker-actions
   using: docker
-  image: quay.io/ansible/molecule:3.0.6 # latest
-  env:
-    COMMAND: ${{ inputs.molecule-command }}
-    SCENARIO: ${{ inputs.molecule-scenario }}
+  image: Dockerfile #quay.io/ansible/molecule:3.0.6
+  #env:
+  #  COMMAND: ${{ inputs.molecule-command }}
+  #  SCENARIO: ${{ inputs.molecule-scenario }}
   #entrypoint: /bin/sh
-  args:
-    - "ln -s /github/workspace /tmp/$GITHUB_REPOSITORY; cd /tmp/$GITHUB_REPOSITORY; ls -lts"
+  #args:
+  #  - "ln -s /github/workspace /tmp/$GITHUB_REPOSITORY; cd /tmp/$GITHUB_REPOSITORY; ls -lts"
 
 # https://haya14busa.github.io/github-action-brandings/
 branding:
