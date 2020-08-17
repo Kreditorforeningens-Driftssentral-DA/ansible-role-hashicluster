@@ -15,9 +15,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        with:
-          path: "${{ github.repository }}"
-      - run: ls -lts
+        #with:
+        #  path: "${{ github.repository }}"
+      - run: env && ls -lts
       - name: Test Ansible role (Ubuntu)
         uses: ./.github/actions/molecule
         with:
