@@ -21,7 +21,7 @@ jobs:
       - run: ls -lts
 
       - name: molecule
-        uses: "${{ github.repository }}/.github/actions/molecule"
+        uses: "./.github/actions/molecule"
         with:
           molecule-command: test
           molecule-scenario: ubuntu
