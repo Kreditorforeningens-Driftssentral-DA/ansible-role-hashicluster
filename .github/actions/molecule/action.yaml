@@ -40,7 +40,8 @@ runs:
   args:
     - cd ${ROOTDIR}
     - pwd
-    - /usr/bin/molecule ${COMMAND} -s ${SCENARIO}"
+    - ls -lts
+    #- /usr/bin/molecule ${COMMAND} -s ${SCENARIO}"
   #entrypoint:
 
 # https://haya14busa.github.io/github-action-brandings/
