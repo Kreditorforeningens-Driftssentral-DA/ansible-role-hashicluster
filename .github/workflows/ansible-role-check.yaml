@@ -20,4 +20,4 @@ jobs:
         uses: ./.github/actions/molecule
         with:
           molecule-command: test
-          molecule-scenario: ubuntu
+          molecule-scenario: centos
