@@ -1,7 +1,7 @@
 ARG IMAGE_NAME
 ARG IMAGE_TAG
 
-FROM ${IMAGE_NAME:-quay.io/ansible/molecule}:${MOLECULE_IMAGE_TAG:-latest}
+FROM ${IMAGE_NAME:-quay.io/ansible/molecule}:${MOLECULE_IMAGE_TAG:-3.0.7}
 
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
