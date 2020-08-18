@@ -30,6 +30,7 @@ runs:
   env:
     IMAGE_NAME: ${{ inputs.image-name }}
     IMAGE_TAG: ${{ inputs.image-tag }}
+    IMAGE_COMMAND:  ${{ inputs.image-command }}
   args: ["molecule","${{ inputs.molecule-command }}"]
 
 # https://haya14busa.github.io/github-action-brandings/
