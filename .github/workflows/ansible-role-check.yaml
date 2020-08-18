@@ -19,9 +19,10 @@ jobs:
         with:
           path: "${{ github.repository }}"
 
-      - run: ls -lts
+      - name: make local actions available
+        run: "ln -fs ${GITHUB_REPOSITORY}/.github/actions ./actions"
 
       - name: molecule
-        uses: "${GITHUB_REPOSITORY}/.github/actions/molecule"
+        uses: "./actions/molecule"
         with:
           molecule-command: 'test'
