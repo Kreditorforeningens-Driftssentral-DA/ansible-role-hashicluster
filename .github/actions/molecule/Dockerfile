@@ -1,11 +1,10 @@
 FROM quay.io/ansible/molecule:3.0.6
 
-COPY docker-entrypoint.sh /docker-entrypoint.sh
-
 WORKDIR /github/workspace
 
-CMD ln -s `pwd` /tmp/$GITHUB_REPOSITORY \
-    && cd /tmp/$GITHUB_REPOSITORY \
-    && ls -lts \
-    && molecule --version \
-    && ansible --version
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+ENTRYPOINT ["docker-entrypoint.sh"]
+
+CMD [""]
