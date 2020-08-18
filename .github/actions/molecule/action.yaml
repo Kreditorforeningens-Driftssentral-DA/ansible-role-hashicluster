@@ -1,13 +1,6 @@
 # DOCS:
 #   - https://github.com/ansible-community/molecule
 #   - https://molecule.readthedocs.io/en/latest/
-#
-#  PWD=/home/runner/work/ansible-role-hashicluster/ansible-role-hashicluster
-#  RUNNER_WORKSPACE=/home/runner/work/ansible-role-hashicluster
-#  GITHUB_REPOSITORY=Kreditorforeningens-Driftssentral-DA/ansible-role-hashicluster
-#  GITHUB_WORKSPACE=/home/runner/work/ansible-role-hashicluster/ansible-role-hashicluster
-#  --workdir /github/workspace
-#  -v "/home/runner/work/ansible-role-hashicluster/ansible-role-hashicluster":"/github/workspace"
 ---
 name: Molecule for Ansible Role Testing
 description: Ansible Role Testing with Molecule

@@ -12,17 +12,35 @@ on:
 jobs:
   molecule-test:
     runs-on: ubuntu-latest
-    steps:
+    strategy:
+      fail-fast: true
+      matrix:
+        os:
+          - linux
+        include:
+          - os: linux
+            NAME: centos
+            TAG: 7
+          - os: linux
+            NAME: centos
+            TAG: 8
+          - os: linux
+            NAME: geerlingguy/docker-ubuntu2004-ansible
+            TAG: latest
 
+    steps:
       - name: checkout
         uses: actions/checkout@v2
         with:
           path: "${{ github.repository }}"
 
-      - name: make local actions available
+      - name: make local actions available at root
         run: "ln -fs ${GITHUB_REPOSITORY}/.github/actions ./actions"
 
       - name: molecule
-        uses: "./actions/molecule"
+        uses: ./actions/molecule
         with:
-          molecule-command: 'test'
+          molecule-command: test -s default
+        env:
+          IMAGE_NAME: ${{ matrix.NAME }}
+          IMAGE_TAG: ${{ matrix.TAG }}
