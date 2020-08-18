@@ -19,4 +19,4 @@ jobs:
       - name: molecule
         uses: ./.github/actions/molecule
         with:
-          molecule-command: 'verify'
+          molecule-command: 'test'
