@@ -1,6 +1,8 @@
 #!/usr/bin/env sh
 set -e
 
+env
+
 ansible --version
 molecule --version
 

@@ -11,8 +11,8 @@ driver:
 platforms:
   - name: "mlc-${IMAGE_NAME:-centos}-${IMAGE_TAG:-latest}"
     image: "${IMAGE_NAME:-centos}:${IMAGE_TAG:-latest}"
-    pre_build_image: true
     command: "${IMAGE_COMMAND:-'/usr/sbin/init'}"
+    pre_build_image: true
     privileged: true
     security_opts:
       - seccomp=unconfined

@@ -8,22 +8,17 @@ driver:
 provisioner:
   name: ansible
   log: false
-  env:
-    CUSTOM_INFO: centos-8
   playbooks:
     #create: '../resources/playbooks/create.yml'
-    #prepare: '../resources/playbooks/prepare.yml'
+    prepare:  '../_resources/playbooks/prepare.yml'
     converge: '../_resources/playbooks/converge.yml'
     verify:   '../_resources/playbooks/verify.yml'
     #destroy: '../resources/playbooks/destroy.yml'
     #cleanup: '../resources/playbooks/cleanup.yml'
 
 verifier:
-  name: ansible #testinfra
+  name: ansible
   enabled: true
-  #directory: ../_resources/tests/
-  #env:
-  #  FOO: bar
 
 platforms:
   - name: mlc-hashicluster-centos
