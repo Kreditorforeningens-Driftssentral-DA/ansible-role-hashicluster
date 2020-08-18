@@ -13,30 +13,15 @@ name: Molecule for Ansible Role Testing
 description: Ansible Role Testing with Molecule
 
 inputs:
-  molecule-image-name:
-    description: The [molecule]("https://molecule.readthedocs.io/en/latest/") docker image to run
-    required: false
-    default: quay.io/ansible/molecule
-  molecule-image-tag:
-    description: The [molecule]("https://molecule.readthedocs.io/en/latest/") docker image tag to use
-    required: false
-    default: latest
   molecule-command:
     description: The [molecule]("https://molecule.readthedocs.io/en/latest/") command to execute
     required: false
     default: list
-  molecule-scenario:
-    description: The [molecule]("https://molecule.readthedocs.io/en/latest/") scenario to use
-    required: false
-    default: default
 
 runs:
   # https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions#runs-for-docker-actions
   using: docker
   image: Dockerfile
-  #env:
-  # COMMAND: ${{ inputs.molecule-command }}
-  # SCENARIO: ${{ inputs.molecule-scenario }}
   args: ["molecule","${{ inputs.molecule-command }}"]
 
 # https://haya14busa.github.io/github-action-brandings/

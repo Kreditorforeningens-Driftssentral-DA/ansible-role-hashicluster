@@ -1,20 +1,22 @@
 #!/usr/bin/env sh
 set -e
 
-# SET ENVIRONMENT
-export ANSIBLE_ROLES_PATH=/tmp
-export ROLE_PATH=/tmp/$(basename ${GITHUB_REPOSITORY})
-
-# LINK REPO TO ROLES PATH
-ln -fs `pwd` ${ROLE_PATH}
-cd ${ROLE_PATH}
-
 ansible --version
 molecule --version
 
+# SET ENVIRONMENT
+# ${GITHUB_REPOSITORY}
+#export ANSIBLE_ROLES_PATH=/tmp
+#export ROLE_PATH=/tmp/$(basename ${GITHUB_REPOSITORY})
+#ansible-galaxy role list --roles-path .
+
+# LINK REPO TO ROLES PATH
+#ln -fs `pwd` ${ROLE_PATH}
+#ls -lts /tmp
+
 # VALIDATE INPUT
 if [ "$1" = 'molecule' ]; then
-  #ansible-galaxy role list --roles-path .
+  cd ${GITHUB_REPOSITORY}
   exec "$@"
 else
   echo "ERROR: Only molecule-commands are accepted!"

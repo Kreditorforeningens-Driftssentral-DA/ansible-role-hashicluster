@@ -15,8 +15,10 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v2
-
+        with:
+          path: "${{ github.repository }}"
+ 
       - name: molecule
-        uses: ./.github/actions/molecule
+        uses: "${{ github.repository }}/.github/actions/molecule"
         with:
           molecule-command: 'test'
