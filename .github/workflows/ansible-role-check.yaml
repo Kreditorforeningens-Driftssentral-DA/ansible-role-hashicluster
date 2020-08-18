@@ -19,7 +19,7 @@ jobs:
         with:
           path: "${{ github.repository }}"
 
-      - run:
+      - run: ls -lts
 
       - name: molecule
         uses: "${GITHUB_REPOSITORY}/.github/actions/molecule"
