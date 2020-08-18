@@ -1,0 +1,41 @@
+---
+scenario:
+  name: default
+
+dependency:
+  name: galaxy
+
+driver:
+  name: docker
+
+platforms:
+  - name: "mlc-${image:-centos}-${tag:-latest}"
+    image: "${image:-centos}:${tag:-latest}"
+    pre_build_image: true
+    command: /usr/sbin/init
+    privileged: true
+    security_opts:
+      - seccomp=unconfined
+    environment:
+      container: docker
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    tmpfs:
+      - '/tmp'
+      - '/run'
+      - '/run/lock'
+    tty: true
+
+provisioner:
+  name: ansible
+  log: false
+  playbooks:
+    #create: '../resources/playbooks/create.yml'
+    prepare:  '../_resources/playbooks/prepare.yml'
+    converge: '../_resources/playbooks/converge.yml'
+    verify:   '../_resources/playbooks/verify.yml'
+    #destroy: '../resources/playbooks/destroy.yml'
+    #cleanup: '../resources/playbooks/cleanup.yml'
+
+verifier:
+  name: ansible

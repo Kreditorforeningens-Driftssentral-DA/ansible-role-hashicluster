@@ -11,6 +11,7 @@ cd ${ROLE_PATH}
 if [ "$1" = 'molecule' ]; then
   ansible --version
   molecule --version
+  ansible-galaxy role list --roles-path .
   exec "$@"
 else
   echo "ERROR: Only molecule-commands are accepted"

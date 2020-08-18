@@ -3,7 +3,7 @@
 #   the role is applied to image
 ---
 
-- name: Verify
+- name: VERIFY
   hosts: all
 
   pre_tasks:

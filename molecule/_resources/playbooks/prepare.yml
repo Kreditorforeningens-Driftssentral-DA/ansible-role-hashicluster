@@ -3,7 +3,7 @@
 #   but before testing role
 ---
 
-- name: Verify
+- name: PREPARE
   hosts: all
   tasks:
 
