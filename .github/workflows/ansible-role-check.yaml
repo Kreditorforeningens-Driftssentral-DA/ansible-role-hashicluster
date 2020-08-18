@@ -34,13 +34,12 @@ jobs:
         with:
           path: "${{ github.repository }}"
 
-      - name: make local actions available at root
+      - name: local actions at root
         run: "ln -fs ${GITHUB_REPOSITORY}/.github/actions ./actions"
 
       - name: molecule
         uses: ./actions/molecule
         with:
-          molecule-command: test -s default
-        env:
-          IMAGE_NAME: ${{ matrix.NAME }}
-          IMAGE_TAG: ${{ matrix.TAG }}
+          image-name: "${{ matrix.NAME }}"
+          image-tag: "${{ matrix.TAG }}"
+          molecule-command: 'test'

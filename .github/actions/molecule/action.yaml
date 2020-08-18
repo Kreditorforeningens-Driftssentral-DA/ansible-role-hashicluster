@@ -6,6 +6,14 @@ name: Molecule for Ansible Role Testing
 description: Ansible Role Testing with Molecule
 
 inputs:
+  image-name:
+    description: The os image name to test with
+    required: false
+    default: centos
+  image-tag:
+    description: The os image tag to test with
+    required: false
+    default: latest
   molecule-command:
     description: The [molecule]("https://molecule.readthedocs.io/en/latest/") command to execute
     required: false
@@ -15,6 +23,9 @@ runs:
   # https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions#runs-for-docker-actions
   using: docker
   image: Dockerfile
+  env:
+    IMAGE_NAME: ${{ inputs.image-name }}
+    IMAGE_TAG: ${{ inputs.image-tag }}
   args: ["molecule","${{ inputs.molecule-command }}"]
 
 # https://haya14busa.github.io/github-action-brandings/
