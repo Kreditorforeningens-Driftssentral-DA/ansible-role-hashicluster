@@ -2,6 +2,7 @@
 set -e
 
 export ROLE_PATH=/tmp/$(basename ${GITHUB_REPOSITORY})
+export ANSIBLE_ROLES_PATH=/tmp
 
 ln -fs `pwd` ${ROLE_PATH}
 cd ${ROLE_PATH}
