@@ -14,6 +14,10 @@ inputs:
     description: The os image tag to test with
     required: false
     default: latest
+  image-command:
+    description: The command to use for the image
+    required: false
+    default: /usr/sbin/init
   molecule-command:
     description: The [molecule]("https://molecule.readthedocs.io/en/latest/") command to execute
     required: false
