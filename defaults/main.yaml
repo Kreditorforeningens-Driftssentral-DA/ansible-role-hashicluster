@@ -12,18 +12,18 @@ config_override_nomad: {}
 
 
 # Application settings
-consul_version: '*'
+consul_version: '.*'
 consul_install: true
 consul_service_configure: true
 consul_service_start: true
 consul_autocomplete: true
 
-vault_version: '*'
+vault_version: '.*'
 vault_install: true
 vault_service_configure: true
 vault_service_start: true
 
-nomad_version: '*'
+nomad_version: '.*'
 nomad_install: true
 nomad_service_configure: true
 nomad_service_start: true

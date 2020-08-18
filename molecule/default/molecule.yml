@@ -29,6 +29,8 @@ platforms:
 provisioner:
   name: ansible
   log: false
+  env:
+    CREATOR: kreditorforeningen
   playbooks:
     #create: '../resources/playbooks/create.yml'
     prepare:  '../_resources/playbooks/prepare.yml'
