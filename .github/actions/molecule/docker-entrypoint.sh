@@ -1,17 +1,18 @@
 #!/usr/bin/env sh
-#set -e
+set -e
 
 export ROLE_PATH=/tmp/$(basename ${GITHUB_REPOSITORY})
-
-env
 
 ln -fs `pwd` ${ROLE_PATH}
 cd ${ROLE_PATH}
 
-ls -lts
+# VALIDATE INPUT
+if [ "$1" = 'molecule' ]; then
+  ansible --version
+  molecule --version
+  exec "$@"
+else
+  echo "ERROR: Only molecule-commands are accepted"
+fi
 
-molecule --version
-ansible --version
-
-#time=$(date)
-#echo "::set-output name=time::$time"
+#echo "::set-output name=example::value-here"

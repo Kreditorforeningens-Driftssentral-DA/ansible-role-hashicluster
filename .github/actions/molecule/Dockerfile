@@ -7,4 +7,4 @@ VOLUME ["/github/workspace"]
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 
-CMD ["cmd-1"]
+CMD ["molecule","test","-s","centos"]
