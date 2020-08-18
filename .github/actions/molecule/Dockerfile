@@ -1,4 +1,5 @@
-FROM quay.io/ansible/molecule:3.0.6
+ARG MOLECULE_IMAGE_TAG
+FROM quay.io/ansible/molecule:${MOLECULE_IMAGE_TAG:-latest}
 
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
