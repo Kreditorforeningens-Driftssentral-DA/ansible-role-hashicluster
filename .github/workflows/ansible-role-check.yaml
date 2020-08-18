@@ -18,5 +18,5 @@ jobs:
 
       - name: molecule
         uses: ./.github/actions/molecule
-        #with:
-        #  molecule-command: test
+        with:
+          molecule-command: 'verify'

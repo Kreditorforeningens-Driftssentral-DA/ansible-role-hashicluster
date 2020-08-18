@@ -33,13 +33,11 @@ inputs:
 runs:
   # https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions#runs-for-docker-actions
   using: docker
-  image: Dockerfile #quay.io/ansible/molecule:3.0.6
-  env:
-    IMAGE_NAME: ${{ inputs.molecule-image-name }}
-    IMAGE_TAG: ${{ inputs.molecule-image-tag }}
-    COMMAND: ${{ inputs.molecule-command }}
-    SCENARIO: ${{ inputs.molecule-scenario }}
-  args: ["molecule","${{ inputs.molecule-command }}","-s","${{ inputs.molecule-scenario }}"]
+  image: Dockerfile
+  #env:
+  # COMMAND: ${{ inputs.molecule-command }}
+  # SCENARIO: ${{ inputs.molecule-scenario }}
+  args: ["molecule","${{ inputs.molecule-command }}"]
 
 # https://haya14busa.github.io/github-action-brandings/
 branding:
