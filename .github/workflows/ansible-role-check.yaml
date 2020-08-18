@@ -13,13 +13,14 @@ jobs:
   molecule-test:
     runs-on: ubuntu-latest
     strategy:
+      max-parallel: 1
       fail-fast: true
       matrix:
         os:
           - centos-7
           - centos-8
-          - ubuntu-18.04
-          - ubuntu-20.04
+          #- ubuntu-18.04
+          #- ubuntu-20.04
         include:
           - os: centos-7
             NAME: centos
