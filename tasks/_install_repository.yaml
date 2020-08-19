@@ -4,6 +4,8 @@
 
 - name: UBUNTU | OS-specific tasks
   block:
+    - set_fact:
+        pkg_ver_split: "="
 
     - name: UBUNTU | Add required package
       become: true
@@ -28,6 +30,8 @@
 
 - name: CENTOS | OS-specific tasks
   block:
+    - set_fact:
+        pkg_ver_split: "-"
 
     - name: CENTOS | Add required package
       become: true
@@ -47,23 +51,57 @@
 
 # INSTALL APPLICATION(S)
 
-- name: INSTALL | Consul
+- name: INSTALL | Consul (default)
   become: true
   package:
     name: "{{ consul_package }}"
     state: present
-  when: consul_install
+  when:
+    - consul_install
+    - consul_package_version == ''
 
-- name: INSTALL | Vault
+- name: INSTALL | Consul (pinned version)
+  become: true
+  package:
+    name: "{{ consul_package }}{{ pkg_ver_split }}{{ consul_package_version }}"
+    state: present
+  when:
+    - consul_install
+    - consul_package_version != ''
+
+
+- name: INSTALL | Vault (default)
   become: true
   package:
     name: "{{ vault_package }}"
     state: present
-  when: vault_install
+  when:
+    - vault_install
+    - vault_package_version == ''
 
-- name: INSTALL | Nomad
+- name: INSTALL | Vault (pinned version)
+  become: true
+  package:
+    name: "{{ vault_package }}{{ pkg_ver_split }}{{ vault_package_version }}"
+    state: present
+  when:
+    - vault_install
+    - vault_package_version != ''
+
+- name: INSTALL | Nomad (default)
   become: true
   package:
     name: "{{ nomad_package }}"
     state: present
-  when: nomad_install
+  when:
+    - nomad_install
+    - nomad_package_version == ''
+
+- name: INSTALL | Nomad (pinned version)
+  become: true
+  package:
+    name: "{{ nomad_package }}{{ pkg_ver_split }}{{ nomad_package_version }}"
+    state: present
+  when:
+    - nomad_install
+    - nomad_package_version != ''

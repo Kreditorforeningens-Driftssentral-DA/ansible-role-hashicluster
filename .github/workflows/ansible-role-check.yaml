@@ -19,23 +19,25 @@ jobs:
         os:
           - centos-7
           - centos-8
-          #- ubuntu-18.04
-          #- ubuntu-20.04
+          - ubuntu-18.04
+          - ubuntu-20.04
         include:
           - os: centos-7
             NAME: centos
             TAG: 7
+            COMMAND: /usr/sbin/init
           - os: centos-8
             NAME: centos
             TAG: 8
-          #- os: ubuntu-18.04
-          #  NAME: geerlingguy/docker-ubuntu1804-ansible
-          #  TAG: latest
-          #  COMMAND: /sbin/init
-          #- os: ubuntu-20.04
-          # NAME: geerlingguy/docker-ubuntu2004-ansible
-          #  TAG: latest
-          #  COMMAND: /sbin/init
+            COMMAND: /usr/sbin/init
+          - os: ubuntu-18.04
+            NAME: ubuntu:18.04
+            TAG: latest
+            COMMAND: /lib/systemd/systemd
+          - os: ubuntu-20.04
+            NAME: ubuntu:20.04
+            TAG: latest
+            COMMAND: /lib/systemd/systemd
 
     steps:
       - name: checkout
