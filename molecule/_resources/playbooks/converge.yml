@@ -25,12 +25,8 @@
       vars:
         # Enable installation(s)
         #consul_install: false
-        #consul_version: '1.7.2'
-        #consul_start: true
         #vault_install: true
-        #vault_start: true
         #nomad_install: false
-        #nomad_start: true
 
         # Configure Consul
         config_override_consul:

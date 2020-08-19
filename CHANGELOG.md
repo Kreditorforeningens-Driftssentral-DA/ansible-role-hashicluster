@@ -1,5 +1,5 @@
 #### UNRELEASED
 
-  - Created role
-  - Added molecule tests
-  - Created pipeline (test)
+  - Created basic role
+  - Created molecule tests
+  - Created github workflow pipeline

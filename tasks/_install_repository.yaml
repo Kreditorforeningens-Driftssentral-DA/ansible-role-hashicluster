@@ -4,8 +4,6 @@
 
 - name: UBUNTU | OS-specific tasks
   block:
-    - set_fact:
-        version_delim: "="
 
     - name: UBUNTU | Add required package
       become: true
@@ -30,8 +28,6 @@
 
 - name: CENTOS | OS-specific tasks
   block:
-    - set_fact:
-        version_delim: "-"
 
     - name: CENTOS | Add required package
       become: true
@@ -51,23 +47,23 @@
 
 # INSTALL APPLICATION(S)
 
-- name: INSTALL | Consul ({{ consul_version }})
+- name: INSTALL | Consul
   become: true
   package:
-    name: "consul{{ version_delim }}{{ consul_version }}"
+    name: "{{ consul_package }}"
     state: present
   when: consul_install
 
-- name: INSTALL | Vault ({{ vault_version }})
+- name: INSTALL | Vault
   become: true
   package:
-    name: "vault{{ version_delim }}{{ vault_version }}"
+    name: "{{ vault_package }}"
     state: present
   when: vault_install
 
-- name: INSTALL | Nomad ({{ nomad_version }})
+- name: INSTALL | Nomad
   become: true
   package:
-    name: "nomad{{ version_delim }}{{ nomad_version }}"
+    name: "{{ nomad_package }}"
     state: present
   when: nomad_install
