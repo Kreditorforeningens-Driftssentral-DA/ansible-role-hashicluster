@@ -1,5 +1,8 @@
-HashiCluster
-#
+# HashiCluster
+
+[![Molecule](https://github.com/Kreditorforeningens-Driftssentral-DA/ansible-role-hashicluster/workflows/Molecule/badge.svg)](https://github.com/Kreditorforeningens-Driftssentral-DA/ansible-role-hashicluster/actions)
+
+## Description
 
 Installation and configuration of HashiCorp applications, based on documentation below:
 
