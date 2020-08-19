@@ -23,10 +23,6 @@
       include_role:
         name: ansible-role-hashicluster # hashicluster
       vars:
-        # Enable installation(s)
-        #consul_install: false
-        #vault_install: true
-        #nomad_install: false
 
         # Configure Consul
         config_override_consul:

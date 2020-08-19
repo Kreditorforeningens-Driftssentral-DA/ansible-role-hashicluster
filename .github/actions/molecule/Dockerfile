@@ -9,5 +9,4 @@ RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 VOLUME ["/github/workspace"]
 
 ENTRYPOINT ["docker-entrypoint.sh"]
-
 CMD ["molecule","--version"]

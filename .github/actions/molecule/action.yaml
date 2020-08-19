@@ -7,15 +7,15 @@ description: Ansible Role Testing with Molecule
 
 inputs:
   image-name:
-    description: The os image name to test with
+    description: The os image name (passed to molecule scenario)
     required: false
     default: centos
   image-tag:
-    description: The os image tag to test with
+    description: The os image tag (passed to molecule scenario)
     required: false
     default: latest
   image-command:
-    description: The command to use for the image
+    description: The os image command (passed to molecule scenario)
     required: false
     default: /usr/sbin/init
   molecule-command:
@@ -28,15 +28,12 @@ runs:
   using: docker
   #image: Dockerfile
   image: quay.io/ansible/molecule:3.0.7
-  args:
-    - "cd ${GITHUB_REPOSITORY}"
-    - "&&"
-    - "molecule"
-    - "${{ inputs.molecule-command }}"
-  #env:
-  #  IMAGE_NAME: ${{ inputs.image-name }}
-  #  IMAGE_TAG: ${{ inputs.image-tag }}
-  #  IMAGE_COMMAND:  ${{ inputs.image-command }}
+  entrypoint: /bin/sh
+  args: ["-c","cd ${GITHUB_REPOSITORY}; molecule ${{ inputs.molecule-command }}"]
+  env:
+    IMAGE_NAME: ${{ inputs.image-name }}
+    IMAGE_TAG: ${{ inputs.image-tag }}
+    IMAGE_COMMAND:  ${{ inputs.image-command }}
 
 # https://haya14busa.github.io/github-action-brandings/
 branding:
