@@ -19,24 +19,29 @@ jobs:
         os:
           - centos-7
           - centos-8
+          - ubuntu-16.04
           - ubuntu-18.04
           - ubuntu-20.04
         include:
           - os: centos-7
             NAME: centos
-            TAG: 7
+            TAG: '7'
             COMMAND: /usr/sbin/init
           - os: centos-8
             NAME: centos
-            TAG: 8
+            TAG: '8'
             COMMAND: /usr/sbin/init
+          - os: ubuntu-16.04
+            NAME: dokken/ubuntu
+            TAG: '16.04'
+            COMMAND: /lib/systemd/systemd
           - os: ubuntu-18.04
-            NAME: ubuntu:18.04
-            TAG: latest
+            NAME: dokken/ubuntu
+            TAG: '18.04'
             COMMAND: /lib/systemd/systemd
           - os: ubuntu-20.04
-            NAME: ubuntu:20.04
-            TAG: latest
+            NAME: dokken/ubuntu
+            TAG: '20.04'
             COMMAND: /lib/systemd/systemd
 
     steps:
