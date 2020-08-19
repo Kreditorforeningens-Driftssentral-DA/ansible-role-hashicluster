@@ -7,14 +7,23 @@
   hosts: all
 
   pre_tasks:
-    - name: VERIFY | Add required packages
+
+    - name: VERIFY | Add CENTOS packages
+      become: true
+      yum:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - epel-release
+      when: ansible_distribution | lower == 'centos'
+
+    - name: VERIFY | Add common packages
       become: true
       package:
         name: "{{ item }}"
         state: present
       loop:
         - jq
-      when: 
 
   tasks:
 

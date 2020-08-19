@@ -16,7 +16,7 @@ consul_package: 'consul'
 consul_install: true
 consul_service_configure: true
 consul_service_start: true
-consul_autocomplete: true
+consul_autocomplete: false
 
 vault_package: 'vault'
 vault_install: true
@@ -27,4 +27,4 @@ nomad_package: 'nomad'
 nomad_install: true
 nomad_service_configure: true
 nomad_service_start: true
-nomad_autocomplete: true
+nomad_autocomplete: false
