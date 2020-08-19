@@ -10,8 +10,8 @@ driver:
 
 platforms:
   - name: "mlc-default"
-    image: "${IMAGE_NAME:-centos}:${IMAGE_TAG:-latest}"
-    command: "${IMAGE_COMMAND:-'/usr/sbin/init'}"
+    image: "${PLATFORM_IMAGE:-'centos:latest'}"
+    command: "${PLATFORM_IMAGE_CMD:-'/usr/sbin/init'}"
     pre_build_image: true
     environment:
       container: docker

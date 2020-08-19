@@ -27,23 +27,33 @@
 
   tasks:
 
-    - name: VERIFY | Copy script(s)
-      copy:
-        src: "../scripts/{{ item }}"
-        dest: "/tmp/{{ item }}"
-        owner: root
-        group: root
-        mode: '0644'
-      loop:
-        - test-1.sh
-      when: false
-
-    - name: VERIFY | Run scripts
+    - name: VERIFY CONSUL | Running scripts..
       script:
         cmd: "{{ item }}"
-      register: script_output
+      register: script_output_consul
+      loop:
+        - ../scripts/consul-check.sh
+
+    - name: VERIFY VAULT | Running scripts..
+      script:
+        cmd: "{{ item }}"
+      register: script_output_vault
       loop:
         - ../scripts/vault-init.sh
+        - ../scripts/vault-check.sh
+
+    - name: VERIFY NOMAD | Running scripts..
+      script:
+        cmd: "{{ item }}"
+      register: script_output_nomad
+      loop:
+        - ../scripts/nomad-check.sh
 
     - debug:
-        var: script_output.results[0].stdout_lines
+        var: script_output_consul.results[0].stdout_lines
+
+    - debug:
+        var: script_output_vault.results[0].stdout_lines
+
+    - debug:
+        var: script_output_nomad.results[0].stdout_lines
