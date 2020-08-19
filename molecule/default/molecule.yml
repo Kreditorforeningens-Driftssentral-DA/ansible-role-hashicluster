@@ -9,21 +9,23 @@ driver:
   name: docker
 
 platforms:
-  - name: "mlc-${IMAGE_NAME:-centos}-${IMAGE_TAG:-latest}"
+  - name: "mlc-default"
     image: "${IMAGE_NAME:-centos}:${IMAGE_TAG:-latest}"
     command: "${IMAGE_COMMAND:-'/usr/sbin/init'}"
     pre_build_image: true
-    privileged: true
-    security_opts:
-      - seccomp=unconfined
     environment:
       container: docker
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    privileged: true
+    capabilities:
+      - SYS_ADMIN
+    security_opts:
+      - seccomp=unconfined
     tmpfs:
       - '/tmp'
       - '/run'
       - '/run/lock'
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     tty: true
 
 provisioner:
