@@ -26,12 +26,17 @@ inputs:
 runs:
   # https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions#runs-for-docker-actions
   using: docker
-  image: Dockerfile
-  env:
-    IMAGE_NAME: ${{ inputs.image-name }}
-    IMAGE_TAG: ${{ inputs.image-tag }}
-    IMAGE_COMMAND:  ${{ inputs.image-command }}
-  args: ["molecule","${{ inputs.molecule-command }}"]
+  #image: Dockerfile
+  image: quay.io/ansible/molecule:3.0.7
+  args:
+    - "cd ${GITHUB_REPOSITORY}"
+    - "&&"
+    - "molecule"
+    - "${{ inputs.molecule-command }}"
+  #env:
+  #  IMAGE_NAME: ${{ inputs.image-name }}
+  #  IMAGE_TAG: ${{ inputs.image-tag }}
+  #  IMAGE_COMMAND:  ${{ inputs.image-command }}
 
 # https://haya14busa.github.io/github-action-brandings/
 branding:

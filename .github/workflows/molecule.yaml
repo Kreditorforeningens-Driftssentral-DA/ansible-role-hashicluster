@@ -41,15 +41,15 @@ jobs:
             COMMAND: /lib/systemd/systemd
 
     steps:
-      - name: checkout
+      - name: Checkout
         uses: actions/checkout@v2
         with:
           path: "${{ github.repository }}"
 
-      - name: local actions at root
+      - name: Link local actions
         run: "ln -fs ${GITHUB_REPOSITORY}/.github/actions ./actions"
 
-      - name: molecule
+      - name: Molecule (test)
         uses: ./actions/molecule
         with:
           image-name: "${{ matrix.NAME }}"
